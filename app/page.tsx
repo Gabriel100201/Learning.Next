@@ -1,6 +1,12 @@
 import Image from "next/image";
+import styles from "@/app/ui/home/home.module.css";
+import { lusitana } from "./fonts/fonts";
 
-export default function Home() {
+import { Suspense } from "react";
+import Skeleton from "./ui/skeletons";
+import Users from "./Users";
+
+export default async function Home() {
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
@@ -12,8 +18,26 @@ export default function Home() {
           height={38}
           priority
         />
+        <Suspense fallback={<Skeleton />}>
+          <Users />
+        </Suspense>
+        <Image
+          src="/banner-desk.jpg"
+          alt="Banner Mobile"
+          width={320}
+          height={180}
+          className="hidden md:block"
+        />
+        <Image
+          src="/banner-mobile.jpg"
+          alt="Banner Mobile"
+          width={320}
+          height={180}
+          className="block md:hidden"
+        />
+        <div className={styles.shape} />
         <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
+          <li className={`${lusitana.className} mb-2`}>
             Get started by editing{" "}
             <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
               app/page.tsx
